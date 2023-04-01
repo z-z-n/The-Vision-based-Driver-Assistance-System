@@ -51,6 +51,7 @@ from utils.general import (LOGGER, Profile, check_file, check_img_size, check_im
 from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, smart_inference_mode
 from curve import process_img #  引入车道检测
+from lane import LANE_DETECTION,LANE_FRAME
 # from curve_video import process_img #  引入车道检测
 
 @smart_inference_mode()
@@ -84,6 +85,7 @@ def run(
         dnn=False,  # use OpenCV DNN for ONNX inference
         vid_stride=1,  # video frame-rate stride
 ):
+    lane_detect = LANE_DETECTION() #*****************************************************
     source = str(source)
     save_img = not nosave and not source.endswith('.txt')  # save inference images
     is_file = Path(source).suffix[1:] in (IMG_FORMATS + VID_FORMATS)
@@ -151,8 +153,9 @@ def run(
             save_path = str(save_dir / p.name)  # im.jpg
             txt_path = str(save_dir / 'labels' / p.stem) + ('' if dataset.mode == 'image' else f'_{frame}')  # im.txt
             s += '%gx%g ' % im.shape[2:]  # print string
-            iml = im0.copy()  # 车道线检测
-            im0 = process_img(iml)
+            iml = im0.copy()  # 车道线检测*************************************************************************
+            # im0 = process_img(iml)
+            im0 = lane_detect.detection(iml)
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             imc = im0.copy() if save_crop else im0  # for save_crop*******************
             annotator = Annotator(im0, line_width=line_thickness, example=str(names))
