@@ -115,6 +115,23 @@ class Annotator:
                             thickness=tf,
                             lineType=cv2.LINE_AA)
 
+    # 距离标记
+    def box_label2(self, box, label='', color=(128, 128, 128), txt_color=(255, 255, 255)):
+        p1, p2 = (int(box[0]), int(box[1])), (int(box[2]), int(box[3]))
+        if label:
+            tf = max(self.lw - 1, 1)  # font thickness
+            w, h = cv2.getTextSize(label, 0, fontScale=self.lw / 3, thickness=tf)[0]  # text width, height
+            p3 = (p1[0], p2[1])
+            p4 = (p1[0] + w, p2[1] + h + 3)
+            cv2.rectangle(self.im, p3, p4, color, -1, cv2.LINE_AA)  # filled
+            cv2.putText(self.im,
+                        label, (p1[0], p2[1] + h),
+                        0,
+                        self.lw / 3,
+                        txt_color,
+                        thickness=tf,
+                        lineType=cv2.LINE_AA)
+
     def masks(self, masks, colors, im_gpu, alpha=0.5, retina_masks=False):
         """Plot masks at once.
         Args:

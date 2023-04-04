@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdc154a9-bd72-43a4-9add-fa42b06984c5" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/lane.py" afterDir="false" />
+    <list default="true" id="cdc154a9-bd72-43a4-9add-fa42b06984c5" name="变更" comment="将车道线检测代码转为类，实现多帧平均">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/images/bus.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/images/zidane.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/detect.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/result1.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lane.py" beforeDir="false" afterPath="$PROJECT_DIR$/lane.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/plots.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +37,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "D:/文档/UCI/EECS159A/RCcar",
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
@@ -141,6 +144,14 @@
       <option name="presentableId" value="Default" />
       <updated>1675214286729</updated>
     </task>
+    <task id="LOCAL-00001" summary="将车道线检测代码转为类，实现多帧平均">
+      <created>1680311168603</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680311168603</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -148,10 +159,31 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="将车道线检测代码转为类，实现多帧平均" />
+    <option name="LAST_COMMIT_MESSAGE" value="将车道线检测代码转为类，实现多帧平均" />
   </component>
 </project>

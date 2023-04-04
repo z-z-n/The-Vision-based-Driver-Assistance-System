@@ -97,6 +97,11 @@ class LANE_FRAME:
 class LANE_DETECTION:
     def __init__(self):
         self.frame_img = LANE_FRAME()
+        self.PTmx = np.zeros((3, 3))  # 透视变换矩阵
+        self.sizePT = (800, 450)
+        self.xm_for_1pix = 3.7 / 384
+        self.ym_for_1pix = 0.91 / 80
+
 
     '''
     图像预处理：1.HLS颜色过滤；2.sobel算子过滤 （2者利用阈值保留并结合）
@@ -179,6 +184,7 @@ class LANE_DETECTION:
         src = np.float32(img_size) * src0
         dst = np.float32(dst_size) * dst0
         R = cv2.getPerspectiveTransform(src, dst)
+        self.PTmx = R   # 保存矩阵
         warped_bin = cv2.warpPerspective(img, R, dst_size)
         warped_color = cv2.warpPerspective(img0, R, dst_size)
 
@@ -438,8 +444,8 @@ class LANE_DETECTION:
     def cal_curve(self, l_indx, r_indx, y, img_bin):
         # 俯视图，左车道线x坐标，右车道线x坐标 和 多项式y坐标
         # x方向上1个像素多少米；y方向上1个像素多少米；
-        xm_for_1pix = 3.7 / 720
-        ym_for_1pix = 30.5 / 720
+        xm_for_1pix = self.xm_for_1pix
+        ym_for_1pix = self.ym_for_1pix
         # 最高点
         y_max = np.max(y)
 
@@ -575,6 +581,22 @@ class LANE_DETECTION:
         l_x, r_x, ploty, img_slide = self.adv_slide_window(img_warped_bin)
         img_processed = self.show_info(img0, img_warped_bin, l_x, r_x, ploty)
         return img_processed
+
+    # 计算周围车辆与本车距离
+    def distance(self, box):
+        p1, p2 = (int(box[0]), int(box[1])), (int(box[2]), int(box[3]))
+        mat = self.PTmx
+        # 取高度最下方的中心点
+        u = (p1[0] + p2[0])/2
+        v = max(p1[1], p2[1])
+        # 计算透视变换后坐标点
+        x = (mat[0][0] * u + mat[0][1] * v + mat[0][2]) / (mat[2][0] * u + mat[2][1] * v + mat[2][2])
+        y = (mat[1][0] * u + mat[1][1] * v + mat[1][2]) / (mat[2][0] * u + mat[2][1] * v + mat[2][2])
+        # print(u,v,x,y)
+        dis = np.sqrt(pow((x-self.sizePT[0]/2)*self.xm_for_1pix, 2) + pow((y-self.sizePT[1])*self.ym_for_1pix, 2))
+        label = 'dis ' + str(round(dis, 1)) + 'm'
+        return label
+
 
 # 滑动窗口一般方法
 # 更新窗口函数
