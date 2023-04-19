@@ -27,11 +27,12 @@ class Yolov5:
             sys.path.append(str(self.ROOT))  # add ROOT to PATH
         self.ROOT = Path(os.path.relpath(self.ROOT, Path.cwd()))  # relative
         '''
-        half = False,  # use FP16 half-precision inference
-        dnn = False,  # use OpenCV DNN for ONNX inference
-        imgsz = (640, 640),  # inference size (height, width)
+        half = False  # use FP16 half-precision inference
+        dnn = False  # use OpenCV DNN for ONNX inference
+        imgsz = (640, 640)  # inference size (height, width)
         # 模型初始化
         device = select_device(device)
+        print('打卡ing')
         model = DetectMultiBackend(weights, device=device, dnn=dnn, data=data, fp16=half)
         stride, names, pt = model.stride, model.names, model.pt
         imgsz = check_img_size(imgsz, s=stride)  # check image size
@@ -102,3 +103,6 @@ class Yolov5:
             cv2.waitKey(1)  # 1 millisecond
 
         return im0, xyxy_list, conf_list, class_id_list
+
+if __name__ == '__main__':
+    model=Yolov5()

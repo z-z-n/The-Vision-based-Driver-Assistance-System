@@ -166,7 +166,8 @@ def train(hyp, opt, device, callbacks):  # hyp is path/to/hyp.yaml or hyp dictio
     ema = ModelEMA(model) if RANK in {-1, 0} else None
 
     # Resume
-    best_fitness, start_epoch = 0.0, 0
+    ckpt['epoch']=99  # ********
+    best_fitness, start_epoch = 0.0, 100  # 0*************************
     if pretrained:
         if resume:
             best_fitness, start_epoch, epochs = smart_resume(ckpt, optimizer, ema, weights, epochs, resume)
@@ -314,6 +315,7 @@ def train(hyp, opt, device, callbacks):  # hyp is path/to/hyp.yaml or hyp dictio
                     loss *= 4.
 
             # Backward
+            torch.use_deterministic_algorithms(False)  # ************************
             scaler.scale(loss).backward()
 
             # Optimize - https://pytorch.org/docs/master/notes/amp_examples.html
@@ -433,15 +435,15 @@ def train(hyp, opt, device, callbacks):  # hyp is path/to/hyp.yaml or hyp dictio
 
 def parse_opt(known=False):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', type=str, default=ROOT / 'yolov5s.pt', help='initial weights path')
-    parser.add_argument('--cfg', type=str, default='', help='model.yaml path')
+    parser.add_argument('--weights', type=str, default=ROOT / 'runs/train/exp3/weights/last.pt', help='initial weights path') # ****ROOT / 'yolov5s.pt'
+    parser.add_argument('--cfg', type=str, default=r'models/yolov5s_ca.yaml', help='model.yaml path')  # ******原为‘’
     parser.add_argument('--data', type=str, default=ROOT / 'data/coco128.yaml', help='dataset.yaml path')
     parser.add_argument('--hyp', type=str, default=ROOT / 'data/hyps/hyp.scratch-low.yaml', help='hyperparameters path')
-    parser.add_argument('--epochs', type=int, default=100, help='total training epochs')
-    parser.add_argument('--batch-size', type=int, default=16, help='total batch size for all GPUs, -1 for autobatch')
+    parser.add_argument('--epochs', type=int, default=600, help='total training epochs')  # 100****************
+    parser.add_argument('--batch-size', type=int, default=-1, help='total batch size for all GPUs, -1 for autobatch') # 16
     parser.add_argument('--imgsz', '--img', '--img-size', type=int, default=640, help='train, val image size (pixels)')
     parser.add_argument('--rect', action='store_true', help='rectangular training')
-    parser.add_argument('--resume', nargs='?', const=True, default=False, help='resume most recent training')
+    parser.add_argument('--resume', nargs='?', const=True, default=True, help='resume most recent training')  # False
     parser.add_argument('--nosave', action='store_true', help='only save final checkpoint')
     parser.add_argument('--noval', action='store_true', help='only validate final epoch')
     parser.add_argument('--noautoanchor', action='store_true', help='disable AutoAnchor')
@@ -485,6 +487,7 @@ def main(opt, callbacks=Callbacks()):
         check_requirements()
 
     # Resume (from specified or most recent last.pt)
+    init_epochs=opt.epochs  # *****************
     if opt.resume and not check_comet_resume(opt) and not opt.evolve:
         last = Path(check_file(opt.resume) if isinstance(opt.resume, str) else get_latest_run())
         opt_yaml = last.parent.parent / 'opt.yaml'  # train options yaml
@@ -495,7 +498,8 @@ def main(opt, callbacks=Callbacks()):
         else:
             d = torch.load(last, map_location='cpu')['opt']
         opt = argparse.Namespace(**d)  # replace
-        opt.cfg, opt.weights, opt.resume = '', str(last), True  # reinstate
+        # opt.cfg, opt.weights, opt.resume = '', str(last), True  # reinstate*********************************
+        opt.cfg, opt.weights, opt.resume, opt.epochs = '', str(last), True,   init_epochs# reinstate
         if is_url(opt_data):
             opt.data = check_file(opt_data)  # avoid HUB resume auth timeout
     else:

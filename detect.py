@@ -57,11 +57,11 @@ from lane import LANE_DETECTION,LANE_FRAME
 @smart_inference_mode()
 def run(
         weights=ROOT / 'yolov5s.pt',  # model path or triton URL
-        # source=ROOT / 'data/images',  # file/dir/URL/glob/screen/0(webcam)
-        source=ROOT / 'data/video',
+        source=ROOT / 'data/images',  # file/dir/URL/glob/screen/0(webcam)
+        # source=ROOT / 'data/video',
         data=ROOT / 'data/coco128.yaml',  # dataset.yaml path
         imgsz=(640, 640),  # inference size (height, width)
-        conf_thres=0.7,  # confidence threshold 默认0.25
+        conf_thres=0.25,  # confidence threshold 默认0.25
         iou_thres=0.45,  # NMS IOU threshold
         max_det=1000,  # maximum detections per image
         device='',  # cuda device, i.e. 0 or 0,1,2,3 or cpu
@@ -155,7 +155,7 @@ def run(
             s += '%gx%g ' % im.shape[2:]  # print string
             iml = im0.copy()  # 车道线检测*************************************************************************
             # im0 = process_img(iml)
-            im0 = lane_detect.detection(iml)
+            # im0 = lane_detect.detection(iml)
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             imc = im0.copy() if save_crop else im0  # for save_crop*******************
             annotator = Annotator(im0, line_width=line_thickness, example=str(names))
@@ -180,17 +180,17 @@ def run(
                         c = int(cls)  # integer class
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
                         annotator.box_label(xyxy, label, color=colors(c, True))
-                        dist = lane_detect.distance(xyxy)
-                        annotator.box_label2(xyxy, dist, color=colors(c, True))
+                        # dist = lane_detect.distance(xyxy)
+                        # annotator.box_label2(xyxy, dist, color=colors(c, True))
                     if save_crop:
                         save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
 
             # Stream results
             im0 = annotator.result()
             # 视频显示
-            cv2.imshow(str(p), im0)
+            # cv2.imshow(str(p), im0)
             # cv2.imshow('test', iml)
-            cv2.waitKey(1)  # 1 millisecond
+            # cv2.waitKey(1)  # 1 millisecond
             if view_img:
                 if platform.system() == 'Linux' and p not in windows:
                     windows.append(p)
@@ -233,13 +233,14 @@ def run(
 
 def parse_opt():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str, default=ROOT / 'yolov5s.pt', help='model path or triton URL')
-    # parser.add_argument('--source', type=str, default=ROOT / 'data/images', help='file/dir/URL/glob/screen/0(webcam)')
-    parser.add_argument('--source', type=str, default=ROOT / 'data/video', help='source')
+    parser.add_argument('--weights', nargs='+', type=str, default=ROOT / 'best.pt', help='model path or triton URL')
+    # parser.add_argument('--weights', nargs='+', type=str, default=ROOT / 'yolov5s.pt', help='model path or triton URL')
+    parser.add_argument('--source', type=str, default=ROOT / 'data/images', help='file/dir/URL/glob/screen/0(webcam)')
+    # parser.add_argument('--source', type=str, default=ROOT / 'data/video', help='source')
     parser.add_argument('--data', type=str, default=ROOT / 'data/coco128.yaml', help='(optional) dataset.yaml path')
     parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=[640], help='inference size h,w')
     # 置信度阈值默认0.25
-    parser.add_argument('--conf-thres', type=float, default=0.7, help='confidence threshold')
+    parser.add_argument('--conf-thres', type=float, default=0.25, help='confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.45, help='NMS IoU threshold')
     parser.add_argument('--max-det', type=int, default=1000, help='maximum detections per image')
     parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
