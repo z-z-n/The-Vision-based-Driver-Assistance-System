@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdc154a9-bd72-43a4-9add-fa42b06984c5" name="变更" comment="修改代码结构，简化Yolov5">
+    <list default="true" id="cdc154a9-bd72-43a4-9add-fa42b06984c5" name="变更" comment="训练结果和yaml文件">
+      <change afterPath="$PROJECT_DIR$/d1_modify_ann.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/d2_txt2xml.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/d3_xml2txt.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/images/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/kitti.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/yolov5s_ca2.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/yolov5s_kitti.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/detect/exp7/4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/F1_curve.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/PR_curve.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/P_curve.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/R_curve.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/confusion_matrix.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/events.out.tfevents.1681876507.DESKTOP-THU8BFM.18188.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/results.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/val_batch0_labels.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/val_batch0_pred.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/val_batch1_labels.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/val_batch1_pred.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/val_batch2_labels.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/val_batch2_pred.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp4/说明.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp5/events.out.tfevents.1681944747.DESKTOP-THU8BFM.13256.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runs/train/exp5/说明.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Yolo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Yolo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/best.pt" beforeDir="false" afterPath="$PROJECT_DIR$/best.pt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/images/5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/mcoco128.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/data/mcoco128.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/detect.py" beforeDir="false" afterPath="$PROJECT_DIR$/detect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/common.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/common.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/yolo.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/yolo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/detect/exp3/result3.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/detect/exp4/Input_Video.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/runs/detect/exp4/Input_Video.mp4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/detect/exp5/Input_Video.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/detect/exp6/Input_Video.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/detect/exp7/bus.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/runs/detect/exp7/bus.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/detect/exp7/zidane.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/runs/detect/exp7/zidane.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/detect/exp7/说明.txt" beforeDir="false" afterPath="$PROJECT_DIR$/runs/detect/exp7/说明.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/val.py" beforeDir="false" afterPath="$PROJECT_DIR$/val.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yolov5s.pt" beforeDir="false" afterPath="$PROJECT_DIR$/yolov5s.pt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,8 +73,8 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.detect">
-    <configuration name="Yolo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.train">
+    <configuration name="d1_modify_ann" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VDAS" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -57,7 +86,49 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Yolo.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/d1_modify_ann.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="d2_txt2xml" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="VDAS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/d2_txt2xml.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="d3_xml2txt" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="VDAS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/d3_xml2txt.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -87,27 +158,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="lane" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="VDAS" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lane.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="VDAS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -129,34 +179,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="val" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="VDAS" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/val.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.detect" />
         <item itemvalue="Python.train" />
-        <item itemvalue="Python.val" />
-        <item itemvalue="Python.Yolo" />
-        <item itemvalue="Python.lane" />
+        <item itemvalue="Python.detect" />
+        <item itemvalue="Python.d3_xml2txt" />
+        <item itemvalue="Python.d2_txt2xml" />
+        <item itemvalue="Python.d1_modify_ann" />
       </list>
     </recent_temporary>
   </component>
@@ -190,7 +219,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681756212074</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="引入CA注意力机制">
+      <created>1681870088502</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1681870088502</updated>
+    </task>
+    <task id="LOCAL-00005" summary="训练结果和yaml文件">
+      <created>1681870433430</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681870433430</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -225,6 +268,8 @@
     <MESSAGE value="将车道线检测代码转为类，实现多帧平均" />
     <MESSAGE value="增加距离估计" />
     <MESSAGE value="修改代码结构，简化Yolov5" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改代码结构，简化Yolov5" />
+    <MESSAGE value="引入CA注意力机制" />
+    <MESSAGE value="训练结果和yaml文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="训练结果和yaml文件" />
   </component>
 </project>
