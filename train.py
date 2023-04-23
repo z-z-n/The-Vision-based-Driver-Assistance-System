@@ -435,7 +435,7 @@ def train(hyp, opt, device, callbacks):  # hyp is path/to/hyp.yaml or hyp dictio
 
 def parse_opt(known=False):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', type=str, default=ROOT / 'runs/train/exp4/weights/best.pt', help='initial weights path') # ****ROOT / 'yolov5s.pt'
+    parser.add_argument('--weights', type=str, default=ROOT / '', help='initial weights path') # ****ROOT / 'yolov5s.pt'
     parser.add_argument('--cfg', type=str, default=r'models/yolov5s_ca2.yaml', help='model.yaml path')  # ******原为‘’
     parser.add_argument('--data', type=str, default=ROOT / 'data/kitti.yaml', help='dataset.yaml path')  # *********************
     parser.add_argument('--hyp', type=str, default=ROOT / 'data/hyps/hyp.scratch-low.yaml', help='hyperparameters path')
