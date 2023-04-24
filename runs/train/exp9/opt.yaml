@@ -1,5 +1,5 @@
 weights: .
-cfg: models/yolov5s_kitti.yaml
+cfg: models/yolov5s_cac3.yaml
 data: data/kitti1.yaml
 hyp:
   lr0: 0.01
@@ -65,4 +65,4 @@ entity: null
 upload_dataset: false
 bbox_interval: -1
 artifact_alias: latest
-save_dir: runs/train/exp9
+save_dir: runs/train/exp10

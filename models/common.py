@@ -885,6 +885,7 @@ class CoordAtt(nn.Module):
         self.act = h_swish()
         self.conv_h = nn.Conv2d(mip, oup, kernel_size=1, stride=1, padding=0)
         self.conv_w = nn.Conv2d(mip, oup, kernel_size=1, stride=1, padding=0)
+    
     def forward(self, x):
         identity = x
         n, c, h, w = x.size()
@@ -904,3 +905,18 @@ class CoordAtt(nn.Module):
         a_w = self.conv_w(x_w).sigmoid()
         out = identity * a_w * a_h
         return out
+
+# 在主干的C3后都添加CA
+class C3_CA(nn.Module):
+    # CSP Bottleneck with 3 convolutions
+    def __init__(self, c1, c2, n=1, shortcut=True, g=1, e=0.5):  # ch_in, ch_out, number, shortcut, groups, expansion
+        super().__init__()
+        c_ = int(c2 * e)  # hidden channels
+        self.cv1 = Conv(c1, c_, 1, 1)
+        self.cv2 = Conv(c1, c_, 1, 1)
+        self.cv3 = Conv(2 * c_, c2, 1)  # optional act=FReLU(c2)
+        self.m = nn.Sequential(*(Bottleneck(c_, c_, shortcut, g, e=1.0) for _ in range(n)))
+        self._CoordAtt = CoordAtt(c2, c2)
+
+    def forward(self, x):
+        return self._CoordAtt(self.cv3(torch.cat((self.m(self.cv1(x)), self.cv2(x)), 1)))
