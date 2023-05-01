@@ -531,7 +531,7 @@ class LANE_DETECTION:
         # 显示是否可以变道
         if l_sp[0]:
             cv2.putText(img_add, 'Can change left!', (450, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 0), 2)
-            print(l_sp)
+            # print(l_sp)
         if r_sp[0]:
             cv2.putText(img_add, 'Can change right!', (650, 150), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 0), 2)
             # print(r_sp)
@@ -579,8 +579,8 @@ class LANE_DETECTION:
         pre = self.preprocess(img0)
         img_warped_bin, img_warped_color = self.perspective_img(pre, img0)
         l_x, r_x, ploty, img_slide = self.adv_slide_window(img_warped_bin)
-        img_processed = self.show_info(img0, img_warped_bin, l_x, r_x, ploty)
-        return img_processed
+        # img_processed = self.show_info(img0, img_warped_bin, l_x, r_x, ploty)
+        return img_warped_bin, l_x, r_x, ploty
 
     # 计算周围车辆与本车距离
     def distance(self, box):
