@@ -77,98 +77,115 @@ class detThread(QThread):
         self.percent_length=1
 
     def run(self):
-        # YOLOv5模型初始化
-        model = DetectMultiBackend(self.weight, device=self.device, dnn=self.dnn, fp16=self.half)
-        stride, names, pt = model.stride, model.names, model.pt
-        imgsz = check_img_size(self.imgsz, s=stride)  # check image size
+        try:
+            # 车道线检测初始化
+            lane_detect = LANE_DETECTION()
+            # YOLOv5模型初始化
+            model = DetectMultiBackend(self.weight, device=self.device, dnn=self.dnn, fp16=self.half)
+            stride, names, pt = model.stride, model.names, model.pt
+            imgsz = check_img_size(self.imgsz, s=stride)  # check image size
 
-        # 加载数据集
-        dataset = LoadImages(self.source, img_size=imgsz, stride=stride)
-        dataset = iter(dataset)
+            # 加载数据集
+            dataset = LoadImages(self.source, img_size=imgsz, stride=stride)
+            dataset = iter(dataset)
 
-        # Run inference
-        bs = 1  # batch_size
-        model.warmup(imgsz=(1 if pt or model.triton else bs, 3, *imgsz))  # warmup
+            # Run inference
+            bs = 1  # batch_size
+            model.warmup(imgsz=(1 if pt or model.triton else bs, 3, *imgsz))  # warmup
 
-        count=0     # 记录当前处理对象次数
-        while True:
-            if self.end:
-                # 终止
-                self.vid_cap.release()  # yolov5内视频捕获终止
-                if self.out is not None:
-                    self.out.release()  # 保存视频终止
-            if self.cur_weight != self.weight:
-                # 更换模型
-                model = DetectMultiBackend(self.cur_weight, device=self.device, dnn=self.dnn, fp16=self.half)
-                stride, names, pt = model.stride, model.names, model.pt
-                imgsz = check_img_size(self.imgsz, s=stride)  # check image size
-                bs = 1  # batch_size
-                model.warmup(imgsz=(1 if pt or model.triton else bs, 3, *imgsz))  # warmup
-                self.weight = self.cur_weight
-            # 计数当前处理帧的个数
-            count += 1
-            # 获取下一个对象
-            path, im, im0s, self.vid_cap, s = next(dataset)
-            if self.vid_cap:
-                percent = int(count / self.vid_cap.get(cv2.CAP_PROP_FRAME_COUNT)*self.percent_length)
-                print(percent,count,self.vid_cap.get(cv2.CAP_PROP_FRAME_COUNT))
-            else:
-                percent = self.percent_length
-            # 图像预处理2
-            im = torch.from_numpy(im).to(model.device)  # 图像格式转换
-            im = im.half() if model.fp16 else im.float()  # uint8 to fp16/32
-            im /= 255  # 0 - 255 to 0.0 - 1.0归一化
-            if len(im.shape) == 3:
-                im = im[None]  # expand for batch dim
+            count = 0  # 记录当前处理对象次数
+            while True:
+                if self.end:
+                    # 终止
+                    self.vid_cap.release()  # yolov5内视频捕获终止
+                    if self.out is not None:
+                        self.out.release()  # 保存视频终止
+                if self.cur_weight != self.weight:
+                    # 更换模型
+                    model = DetectMultiBackend(self.cur_weight, device=self.device, dnn=self.dnn, fp16=self.half)
+                    stride, names, pt = model.stride, model.names, model.pt
+                    imgsz = check_img_size(self.imgsz, s=stride)  # check image size
+                    bs = 1  # batch_size
+                    model.warmup(imgsz=(1 if pt or model.triton else bs, 3, *imgsz))  # warmup
+                    self.weight = self.cur_weight
+                # 计数当前处理帧的个数
+                count += 1
+                # 获取下一个对象
+                path, im, im0s, self.vid_cap, s = next(dataset)
+                if self.vid_cap:
+                    percent = int(count / self.vid_cap.get(cv2.CAP_PROP_FRAME_COUNT) * self.percent_length)
+                    # print(percent,count,self.vid_cap.get(cv2.CAP_PROP_FRAME_COUNT))
+                else:
+                    percent = self.percent_length
+                # 图像预处理2
+                im = torch.from_numpy(im).to(model.device)  # 图像格式转换
+                im = im.half() if model.fp16 else im.float()  # uint8 to fp16/32
+                im /= 255  # 0 - 255 to 0.0 - 1.0归一化
+                if len(im.shape) == 3:
+                    im = im[None]  # expand for batch dim
 
-            # 模型推理
-            # 图片进行前向推理
-            pred = model(im, augment=False, visualize=False)  # augment和visualize都是参数，预测是否采用数据增强、虚拟化特征？
-            # nms除去多余的框
-            pred = non_max_suppression(pred, self.conf, self.iou, self.classes, self.agnostic_nms, max_det=self.max_det)
-            # 每张图片进行处理
-            for i, det in enumerate(pred):
-                im0 = im0s.copy()
-                annotator = Annotator(im0, line_width=self.line_thickness, example=str(names))
-                if len(det):
-                    # 将坐标信息恢复到原始图像的尺寸
-                    det[:, :4] = scale_boxes(im.shape[2:], det[:, :4], im0.shape).round()
-                    for *xyxy, conf, cls in reversed(det):  # 框位置，置信度和类别id
-                        c = int(cls)  # integer class
-                        # 保存当前信息
-                        '''xyxy_list.append(xyxy)
-                        conf_list.append(conf)
-                        class_id_list.append(c)'''
-                        # 标签内容
-                        label = f'{names[c]} {conf:.2f}'
-                        annotator.box_label(xyxy, label, color=colors(c, True))
-                        '''
-                        dist = lane_detect.distance(xyxy)
-                        annotator.box_label2(xyxy, dist, color=colors(c, True))
-                        '''
-                im0 = annotator.result()
-                self.send_img.emit(im0)
-                # 保存
-                if self.autosave:
-                    os.makedirs(self.save, exist_ok=True)
-                    if self.vid_cap is None:
-                        # 图片
-                        save_path = os.path.join(self.save,
-                                                 time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime()) + '.png')
-                        cv2.imwrite(save_path, im0)
-                    else:
-                        # 视频
-                        if count==1:    #第一帧初始化
-                            fps = int(self.vid_cap.get(cv2.CAP_PROP_FPS))
-                            if fps == 0:
-                                fps = 25
-                            width, height = im0.shape[1], im0.shape[0]
+                # 模型推理
+                # 图片进行前向推理
+                pred = model(im, augment=False, visualize=False)  # augment和visualize都是参数，预测是否采用数据增强、虚拟化特征？
+                # nms除去多余的框
+                pred = non_max_suppression(pred, self.conf, self.iou, self.classes, self.agnostic_nms,
+                                           max_det=self.max_det)
+                # 每张图片进行处理
+                for i, det in enumerate(pred):
+                    im0 = im0s.copy()
+                    annotator = Annotator(im0, line_width=self.line_thickness, example=str(names))
+                    if len(det):
+                        # 将坐标信息恢复到原始图像的尺寸
+                        det[:, :4] = scale_boxes(im.shape[2:], det[:, :4], im0.shape).round()
+                        for *xyxy, conf, cls in reversed(det):  # 框位置，置信度和类别id
+                            c = int(cls)  # integer class
+                            # 保存当前信息
+                            '''xyxy_list.append(xyxy)
+                            conf_list.append(conf)
+                            class_id_list.append(c)'''
+                            # 标签内容
+                            label = f'{names[c]} {conf:.2f}'
+                            annotator.box_label(xyxy, label, color=colors(c, True))
+                            '''
+                            dist = lane_detect.distance(xyxy)
+                            annotator.box_label2(xyxy, dist, color=colors(c, True))
+                            '''
+                    im0 = annotator.result()
+                    # 车道线检测
+                    img_bin, lx, rx, pty = lane_detect.detection(im0s.copy())
+                    im0 = lane_detect.show_info(im0, img_bin, lx, rx, pty)
+                    self.send_img.emit(im0)
+                    # 保存
+                    if self.autosave:
+                        os.makedirs(self.save, exist_ok=True)
+                        if self.vid_cap is None:
+                            # 图片
                             save_path = os.path.join(self.save,
-                                                     time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime()) + '.mp4')
-                            self.out = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, (width, height))
-                        self.out.write(im0)
-            if percent==self.percent_length:
-                break
+                                                     time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime()) + '.png')
+                            cv2.imwrite(save_path, im0)
+                        else:
+                            # 视频
+                            if count == 1:  # 第一帧初始化
+                                fps = int(self.vid_cap.get(cv2.CAP_PROP_FPS))
+                                if fps == 0:
+                                    fps = 25
+                                width, height = im0.shape[1], im0.shape[0]
+                                save_path = os.path.join(self.save,
+                                                         time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime()) + '.mp4')
+                                self.out = cv2.VideoWriter(save_path, cv2.VideoWriter_fourcc(*"mp4v"), fps,
+                                                           (width, height))
+                            self.out.write(im0)
+                if percent == self.percent_length:
+                    if self.out is not None:
+                        self.out.release()  # 保存视频终止
+                    break
+        # 异常处理
+        except Exception as e:
+            print(e)
+            if self.out is not None:
+                self.out.release()  # 保存视频终止
+            # self.send_msg.emit('%s' % e)
+
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
