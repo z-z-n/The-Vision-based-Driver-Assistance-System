@@ -444,7 +444,7 @@ def show_info(img, img_bin, l_x, r_x, ploty, l_sp, r_sp, max_sp=0.6):
     pix = np.hstack((left_pix, right_pix))
 
     # 填充区域
-    cv2.fillPoly(img_RGB, pix, (106, 90, 205))
+    cv2.fillPoly(img_RGB, pix, (41,122,255))
     lane_area = re_perspective_img(img_RGB)
     img_add = cv2.addWeighted(img, 1, lane_area, 0.7, 0)
     # img_add = cv2.resize(img_add, (1200, 750))

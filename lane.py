@@ -483,8 +483,8 @@ class LANE_DETECTION:
         # 矩阵合并：2个(1,450,2)变为(1,900,2)
         pix = np.hstack((left_pix, right_pix))
 
-        # 填充区域
-        cv2.fillPoly(img_RGB, pix, (106, 90, 205))
+        # 填充区域 实际BRG, R3,G87,B216
+        cv2.fillPoly(img_RGB, pix, (255, 80, 0))
         lane_area = self.re_perspective_img(img_RGB)
         img_add = cv2.addWeighted(img, 1, lane_area, 0.7, 0)
         # img_add = cv2.resize(img_add, (1200, 750)) #图像大小不能固定在yolo检测中

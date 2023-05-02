@@ -39,19 +39,6 @@
     </size>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <spacer name="horizontalSpacer1">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
     <item row="1" column="2">
      <spacer name="horizontalSpacer2">
       <property name="orientation">
@@ -65,15 +52,15 @@
       </property>
      </spacer>
     </item>
-    <item row="2" column="1">
-     <spacer name="verticalSpacer2">
+    <item row="1" column="0">
+     <spacer name="horizontalSpacer1">
       <property name="orientation">
-       <enum>Qt::Vertical</enum>
+       <enum>Qt::Horizontal</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>20</width>
-        <height>10</height>
+        <width>40</width>
+        <height>20</height>
        </size>
       </property>
      </spacer>
@@ -91,12 +78,25 @@
       </property>
      </spacer>
     </item>
+    <item row="2" column="1">
+     <spacer name="verticalSpacer2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>10</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
     <item row="1" column="1">
      <widget class="QFrame" name="frame_background">
       <property name="minimumSize">
        <size>
         <width>1710</width>
-        <height>1140</height>
+        <height>1080</height>
        </size>
       </property>
       <property name="styleSheet">
@@ -114,13 +114,13 @@
          <x>20</x>
          <y>60</y>
          <width>580</width>
-         <height>1080</height>
+         <height>980</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
          <width>580</width>
-         <height>1080</height>
+         <height>980</height>
         </size>
        </property>
        <property name="maximumSize">
@@ -141,16 +141,16 @@
        <widget class="QLabel" name="label_car">
         <property name="geometry">
          <rect>
-          <x>90</x>
+          <x>149</x>
           <y>30</y>
-          <width>400</width>
+          <width>281</width>
           <height>550</height>
          </rect>
         </property>
         <property name="minimumSize">
          <size>
-          <width>400</width>
-          <height>500</height>
+          <width>255</width>
+          <height>550</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -626,75 +626,13 @@
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="pushButton_4">
-        <property name="geometry">
-         <rect>
-          <x>140</x>
-          <y>990</y>
-          <width>130</width>
-          <height>70</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>Times New Roman</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton{background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;}
-QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; color:white;}</string>
-        </property>
-        <property name="text">
-         <string>Start</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_5">
-        <property name="geometry">
-         <rect>
-          <x>290</x>
-          <y>990</y>
-          <width>130</width>
-          <height>70</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <family>Times New Roman</family>
-          <pointsize>10</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton{background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;}
-QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; color:white;}</string>
-        </property>
-        <property name="text">
-         <string>End</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="autoExclusive">
-         <bool>true</bool>
-        </property>
-       </widget>
        <widget class="QFrame" name="frame">
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>900</y>
-          <width>471</width>
-          <height>81</height>
+          <y>880</y>
+          <width>470</width>
+          <height>80</height>
          </rect>
         </property>
         <property name="frameShape">
@@ -804,13 +742,13 @@ QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; col
          <x>710</x>
          <y>60</y>
          <width>980</width>
-         <height>1080</height>
+         <height>980</height>
         </rect>
        </property>
        <property name="minimumSize">
         <size>
          <width>980</width>
-         <height>1080</height>
+         <height>980</height>
         </size>
        </property>
        <property name="maximumSize">
@@ -834,13 +772,13 @@ QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; col
           <x>40</x>
           <y>40</y>
           <width>900</width>
-          <height>800</height>
+          <height>700</height>
          </rect>
         </property>
         <property name="minimumSize">
          <size>
           <width>900</width>
-          <height>800</height>
+          <height>700</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -1062,7 +1000,7 @@ QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; col
         <property name="geometry">
          <rect>
           <x>360</x>
-          <y>970</y>
+          <y>770</y>
           <width>581</width>
           <height>80</height>
          </rect>
@@ -1200,6 +1138,68 @@ QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; col
         </property>
         <property name="autoExclusive">
          <bool>false</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>770</y>
+          <width>130</width>
+          <height>70</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Times New Roman</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;}
+QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; color:white;}</string>
+        </property>
+        <property name="text">
+         <string>Start</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>770</y>
+          <width>130</width>
+          <height>70</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Times New Roman</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;}
+QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; color:white;}</string>
+        </property>
+        <property name="text">
+         <string>End</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
         </property>
        </widget>
       </widget>
