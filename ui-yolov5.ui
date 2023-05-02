@@ -16,12 +16,6 @@
     <height>1200</height>
    </size>
   </property>
-  <property name="maximumSize">
-   <size>
-    <width>2160</width>
-    <height>1440</height>
-   </size>
-  </property>
   <property name="windowTitle">
    <string>ADAS视觉驾驶辅助系统</string>
   </property>
@@ -71,8 +65,8 @@
       </property>
      </spacer>
     </item>
-    <item row="0" column="1">
-     <spacer name="verticalSpacer1">
+    <item row="2" column="1">
+     <spacer name="verticalSpacer2">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -84,8 +78,8 @@
       </property>
      </spacer>
     </item>
-    <item row="2" column="1">
-     <spacer name="verticalSpacer2">
+    <item row="0" column="1">
+     <spacer name="verticalSpacer1">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -144,7 +138,7 @@
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="label_car">
         <property name="geometry">
          <rect>
           <x>90</x>
@@ -166,7 +160,7 @@
          <string>Image</string>
         </property>
        </widget>
-       <widget class="QFrame" name="frame">
+       <widget class="QFrame" name="frame_obnum">
         <property name="geometry">
          <rect>
           <x>40</x>
@@ -176,7 +170,7 @@
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(170, 170, 255);</string>
+         <string notr="true">background-color: rgb(62,68,92);</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -184,7 +178,7 @@
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <widget class="QFrame" name="frame_3">
+        <widget class="QFrame" name="frame_ob_icon">
          <property name="geometry">
           <rect>
            <x>30</x>
@@ -194,7 +188,7 @@
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color:rgb(255, 255, 255);</string>
+          <string notr="true">background-color:rgb(41,122,255);</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -202,8 +196,21 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <widget class="QLabel" name="label_ob_icon">
+          <property name="geometry">
+           <rect>
+            <x>16</x>
+            <y>15</y>
+            <width>40</width>
+            <height>40</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ICON</string>
+          </property>
+         </widget>
         </widget>
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="label_ob_num">
          <property name="geometry">
           <rect>
            <x>110</x>
@@ -227,7 +234,7 @@
           <string>Object: 10</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_5">
+        <widget class="QLabel" name="label_ob_car">
          <property name="geometry">
           <rect>
            <x>30</x>
@@ -251,7 +258,7 @@
           <string>Cars: 10</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_6">
+        <widget class="QLabel" name="label_ob_ped">
          <property name="geometry">
           <rect>
            <x>30</x>
@@ -278,7 +285,7 @@
           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
          </property>
         </widget>
-        <widget class="QLabel" name="label_7">
+        <widget class="QLabel" name="label_ob_cyc">
          <property name="geometry">
           <rect>
            <x>30</x>
@@ -303,7 +310,7 @@
          </property>
         </widget>
        </widget>
-       <widget class="QFrame" name="frame_2">
+       <widget class="QFrame" name="frame_fcw">
         <property name="geometry">
          <rect>
           <x>310</x>
@@ -313,7 +320,7 @@
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(170, 170, 255);</string>
+         <string notr="true">background-color: rgb(62,68,92);</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -321,7 +328,7 @@
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <widget class="QFrame" name="frame_4">
+        <widget class="QFrame" name="frame_fcw_icon">
          <property name="geometry">
           <rect>
            <x>30</x>
@@ -331,7 +338,7 @@
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color:rgb(255, 255, 255);</string>
+          <string notr="true">background-color:rgb(41,122,255);</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -339,8 +346,21 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+         <widget class="QLabel" name="label_fcw_icon">
+          <property name="geometry">
+           <rect>
+            <x>16</x>
+            <y>15</y>
+            <width>40</width>
+            <height>40</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ICON</string>
+          </property>
+         </widget>
         </widget>
-        <widget class="QLabel" name="label_4">
+        <widget class="QLabel" name="label_fcw_1">
          <property name="geometry">
           <rect>
            <x>120</x>
@@ -364,7 +384,7 @@
           <string>Dis: 10 m</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_8">
+        <widget class="QLabel" name="label_fcw_state">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -391,7 +411,7 @@
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
-        <widget class="QLabel" name="label_9">
+        <widget class="QLabel" name="label_fcw3">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -418,7 +438,7 @@
           <set>Qt::AlignJustify|Qt::AlignVCenter</set>
          </property>
         </widget>
-        <widget class="QLabel" name="label_10">
+        <widget class="QLabel" name="label_fcw_2">
          <property name="geometry">
           <rect>
            <x>40</x>
@@ -442,7 +462,7 @@
           <string>2nd: 10 m</string>
          </property>
         </widget>
-        <widget class="QLabel" name="label_11">
+        <widget class="QLabel" name="label_fcw_title">
          <property name="geometry">
           <rect>
            <x>110</x>
@@ -472,7 +492,7 @@
          </property>
         </widget>
        </widget>
-       <widget class="QLabel" name="label_weather_5">
+       <widget class="QLabel" name="label_deviation">
         <property name="geometry">
          <rect>
           <x>80</x>
@@ -493,7 +513,7 @@
          <enum>Qt::LeftToRight</enum>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(0, 0, 0);background: transparent；</string>
+         <string notr="true">color: rgb(0, 0, 0);background: transparent;</string>
         </property>
         <property name="text">
          <string>Deviation</string>
@@ -502,7 +522,7 @@
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_weather_6">
+       <widget class="QLabel" name="label_dev_num">
         <property name="geometry">
          <rect>
           <x>80</x>
@@ -532,7 +552,7 @@
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QLabel" name="label_weather_7">
+       <widget class="QLabel" name="label_dev_m">
         <property name="geometry">
          <rect>
           <x>210</x>
@@ -562,217 +582,7 @@
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
        </widget>
-       <widget class="QFrame" name="frame_5">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>910</y>
-          <width>131</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 255);</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QLabel" name="label_12">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>30</y>
-           <width>72</width>
-           <height>15</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Times New Roman</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Video</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QFrame" name="frame_6">
-        <property name="geometry">
-         <rect>
-          <x>215</x>
-          <y>910</y>
-          <width>131</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 255);</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QLabel" name="label_13">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>30</y>
-           <width>72</width>
-           <height>15</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Times New Roman</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Image</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QFrame" name="frame_9">
-        <property name="geometry">
-         <rect>
-          <x>370</x>
-          <y>910</y>
-          <width>131</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 255);</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QLabel" name="label_16">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>30</y>
-           <width>72</width>
-           <height>15</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Times New Roman</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Auto Save</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QFrame" name="frame_7">
-        <property name="geometry">
-         <rect>
-          <x>140</x>
-          <y>990</y>
-          <width>131</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 255);</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QLabel" name="label_14">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>30</y>
-           <width>72</width>
-           <height>15</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Times New Roman</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Start</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QFrame" name="frame_8">
-        <property name="geometry">
-         <rect>
-          <x>290</x>
-          <y>990</y>
-          <width>131</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 255);</string>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <widget class="QLabel" name="label_15">
-         <property name="geometry">
-          <rect>
-           <x>30</x>
-           <y>30</y>
-           <width>72</width>
-           <height>15</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Times New Roman</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>End</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QLabel" name="label_18">
+       <widget class="QLabel" name="label_car_r">
         <property name="geometry">
          <rect>
           <x>400</x>
@@ -794,7 +604,7 @@
          <string/>
         </property>
        </widget>
-       <widget class="QLabel" name="label_19">
+       <widget class="QLabel" name="label_car_l">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -815,6 +625,177 @@
         <property name="text">
          <string/>
         </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="geometry">
+         <rect>
+          <x>140</x>
+          <y>990</y>
+          <width>130</width>
+          <height>70</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Times New Roman</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;}
+QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; color:white;}</string>
+        </property>
+        <property name="text">
+         <string>Start</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>990</y>
+          <width>130</width>
+          <height>70</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Times New Roman</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton{background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;}
+QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; color:white;}</string>
+        </property>
+        <property name="text">
+         <string>End</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QFrame" name="frame">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>900</y>
+          <width>471</width>
+          <height>81</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <widget class="QPushButton" name="pushButton">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>0</y>
+           <width>130</width>
+           <height>70</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;}
+QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; color:white;}</string>
+         </property>
+         <property name="text">
+          <string>Video</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="geometry">
+          <rect>
+           <x>170</x>
+           <y>0</y>
+           <width>130</width>
+           <height>71</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;}
+QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; color:white;}</string>
+         </property>
+         <property name="text">
+          <string>Image</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="autoExclusive">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="geometry">
+          <rect>
+           <x>330</x>
+           <y>0</y>
+           <width>130</width>
+           <height>70</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <family>Times New Roman</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;}
+QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; color:white;}</string>
+         </property>
+         <property name="text">
+          <string>AutoSave</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
        </widget>
       </widget>
       <widget class="QFrame" name="frame_right">
@@ -879,7 +860,7 @@
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(41,122,254);</string>
+         <string notr="true">background-color: rgba(41,122,254,150);</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -908,7 +889,7 @@
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true">color: rgb(255, 255, 255);background: transparent;</string>
          </property>
          <property name="text">
           <string>Turn Right</string>
@@ -921,13 +902,13 @@
          <property name="geometry">
           <rect>
            <x>20</x>
-           <y>50</y>
-           <width>51</width>
-           <height>51</height>
+           <y>30</y>
+           <width>71</width>
+           <height>71</height>
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true">color: rgb(255, 255, 255);background: transparent;</string>
          </property>
          <property name="text">
           <string>ICON</string>
@@ -954,7 +935,7 @@
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);</string>
+          <string notr="true">color: rgb(255, 255, 255);background: transparent;</string>
          </property>
          <property name="text">
           <string>Radio of curvation: 71m</string>
@@ -974,7 +955,7 @@
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
+         <string notr="true">background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -995,7 +976,7 @@
           <bool>false</bool>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);</string>
+          <string notr="true">QSlider{background-color: rgb(240,240,252);border-width:0px;}</string>
          </property>
          <property name="maximum">
           <number>99</number>
@@ -1019,7 +1000,7 @@
           <number>10</number>
          </property>
         </widget>
-        <widget class="QSpinBox" name="spinBox">
+        <widget class="QSpinBox" name="spinBox_conf">
          <property name="geometry">
           <rect>
            <x>100</x>
@@ -1031,13 +1012,13 @@
          <property name="font">
           <font>
            <family>Times New Roman</family>
-           <pointsize>10</pointsize>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 254, 240);</string>
+          <string notr="true">background-color: rgb(240,240,252);border-width:0px;</string>
          </property>
          <property name="buttonSymbols">
           <enum>QAbstractSpinBox::UpDownArrows</enum>
@@ -1046,7 +1027,7 @@
           <bool>false</bool>
          </property>
         </widget>
-        <widget class="QLabel" name="label_weather_2">
+        <widget class="QLabel" name="label_conf">
          <property name="geometry">
           <rect>
            <x>20</x>
@@ -1066,6 +1047,9 @@
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
          </property>
+         <property name="styleSheet">
+          <string notr="true">border-width:0px;</string>
+         </property>
          <property name="text">
           <string>Conf:</string>
          </property>
@@ -1084,7 +1068,7 @@
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);</string>
+         <string notr="true">background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -1105,7 +1089,7 @@
           <bool>false</bool>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 255, 255);</string>
+          <string notr="true">background-color: rgb(240,240,252);border-width:0px;</string>
          </property>
          <property name="maximum">
           <number>99</number>
@@ -1129,7 +1113,7 @@
           <number>10</number>
          </property>
         </widget>
-        <widget class="QSpinBox" name="spinBox_2">
+        <widget class="QSpinBox" name="spinBox_iou">
          <property name="geometry">
           <rect>
            <x>100</x>
@@ -1141,13 +1125,13 @@
          <property name="font">
           <font>
            <family>Times New Roman</family>
-           <pointsize>10</pointsize>
+           <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(255, 254, 240);</string>
+          <string notr="true">background-color: rgb(240,240,252);border-width:0px;</string>
          </property>
          <property name="buttonSymbols">
           <enum>QAbstractSpinBox::UpDownArrows</enum>
@@ -1156,7 +1140,7 @@
           <bool>false</bool>
          </property>
         </widget>
-        <widget class="QLabel" name="label_weather_3">
+        <widget class="QLabel" name="label_iou">
          <property name="geometry">
           <rect>
            <x>30</x>
@@ -1176,6 +1160,9 @@
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
          </property>
+         <property name="styleSheet">
+          <string notr="true">border-width:0px;</string>
+         </property>
          <property name="text">
           <string>IoU:</string>
          </property>
@@ -1184,47 +1171,36 @@
          </property>
         </widget>
        </widget>
-       <widget class="QFrame" name="frame_10">
+       <widget class="QPushButton" name="pushButton_6">
         <property name="geometry">
          <rect>
-          <x>80</x>
+          <x>90</x>
           <y>880</y>
-          <width>211</width>
-          <height>71</height>
+          <width>201</width>
+          <height>70</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>Times New Roman</family>
+          <pointsize>10</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="styleSheet">
-         <string notr="true">background-color:rgb(255, 255, 255);</string>
+         <string notr="true">QPushButton{background-color: rgb(240,240,252);border-radius:35px;border:2px groove rgb(226,227,248);border-style:outset;}
+QPushButton:checked { background-color: rgb(80,97,229); border-style: inset; color:white;}</string>
         </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+        <property name="text">
+         <string>Model: YOLOv5</string>
         </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+        <property name="checkable">
+         <bool>false</bool>
         </property>
-        <widget class="QLabel" name="label_17">
-         <property name="geometry">
-          <rect>
-           <x>20</x>
-           <y>30</y>
-           <width>161</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="font">
-          <font>
-           <family>Times New Roman</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Model：YOLOv5</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
        </widget>
       </widget>
       <widget class="QLabel" name="label_weather">
