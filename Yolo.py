@@ -18,7 +18,8 @@ class Yolov5:
     def __init__(self,
                  device='',
                  weights='yolov5s.pt',
-                 data='data/coco128.yaml'
+                 iou=0.45,
+                 conf=0.7
                  ):
         '''
         self.FILE = Path(__file__).resolve()
@@ -30,6 +31,7 @@ class Yolov5:
         half = False  # use FP16 half-precision inference
         dnn = False  # use OpenCV DNN for ONNX inference
         imgsz = (640, 640)  # inference size (height, width)
+        data = 'data/coco128.yaml'
         # 模型初始化
         device = select_device(device)
         print('打开ing')
@@ -46,8 +48,8 @@ class Yolov5:
         self.names = names
         self.auto = pt
         self.model = model
-        self.conf_thres = 0.7  # 置信度默认0.25
-        self.iou_thres = 0.45  # NMS IOU threshold
+        self.conf_thres = conf  # 置信度默认0.25
+        self.iou_thres = iou  # NMS IOU threshold
         self.max_det = 1000  # 最多检测目标
         self.classes = None  # 是否只保留特定类别: --class 0, or --class 0 2 3
         self.agnostic_nms = False  # 进行nms是否也去除不同类别间的框class-agnostic NMS

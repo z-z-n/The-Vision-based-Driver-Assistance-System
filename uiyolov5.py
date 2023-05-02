@@ -13,18 +13,7 @@ from PyQt5.QtGui import QPixmap, QImage
 import sys
 
 
-class Ui_MainWindow(QtWidgets.QMainWindow):
-    def __init__(self):
-        super(Ui_MainWindow, self).__init__()
-        self.pix_up = QPixmap('./icon/arrow-up.png')
-        self.pix_cr = QPixmap('./icon/car.png')
-        self.pix_c1 = QPixmap('./icon/car1.png')
-        self.pix_ca = QPixmap('./icon/caution.png')
-        self.pix_lf = QPixmap('./icon/corner-up-left.png')
-        self.pix_rg = QPixmap('./icon/corner-up-right.png')
-        self.pix_rt = QPixmap('./icon/result.png')
-        self.setupUi(self)
-
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1790, 1225)
@@ -64,9 +53,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.label_car.setMinimumSize(QtCore.QSize(255, 550))
         self.label_car.setStyleSheet("background-color: rgb(170, 170, 255);")
         self.label_car.setObjectName("label_car")
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        self.label_car.setPixmap(self.pix_c1)
-        self.label_car.setScaledContents(True)  # 自适应QLabel大小
         self.frame_obnum = QtWidgets.QFrame(self.frame_left)
         self.frame_obnum.setGeometry(QtCore.QRect(40, 640, 220, 220))
         self.frame_obnum.setStyleSheet("background-color: rgb(62,68,92);")
@@ -82,9 +68,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.label_ob_icon = QtWidgets.QLabel(self.frame_ob_icon)
         self.label_ob_icon.setGeometry(QtCore.QRect(16, 15, 40, 40))
         self.label_ob_icon.setObjectName("label_ob_icon")
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        self.label_ob_icon.setPixmap(self.pix_cr)
-        self.label_ob_icon.setScaledContents(True)  # 自适应QLabel大小
         self.label_ob_num = QtWidgets.QLabel(self.frame_obnum)
         self.label_ob_num.setGeometry(QtCore.QRect(110, 65, 91, 31))
         font = QtGui.QFont()
@@ -141,9 +124,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.label_fcw_icon = QtWidgets.QLabel(self.frame_fcw_icon)
         self.label_fcw_icon.setGeometry(QtCore.QRect(16, 15, 40, 40))
         self.label_fcw_icon.setObjectName("label_fcw_icon")
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        self.label_fcw_icon.setPixmap(self.pix_ca)
-        self.label_fcw_icon.setScaledContents(True)  # 自适应QLabel大小
         self.label_fcw_1 = QtWidgets.QLabel(self.frame_fcw)
         self.label_fcw_1.setGeometry(QtCore.QRect(120, 70, 91, 31))
         font = QtGui.QFont()
@@ -304,9 +284,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.label_result.setMinimumSize(QtCore.QSize(900, 700))
         self.label_result.setStyleSheet("background-color: rgb(170, 170, 255);")
         self.label_result.setObjectName("label_result")
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        self.label_result.setPixmap(self.pix_rt)
-        self.label_result.setScaledContents(True)  # 自适应QLabel大小
         self.frame_prompt = QtWidgets.QFrame(self.frame_right)
         self.frame_prompt.setGeometry(QtCore.QRect(80, 70, 281, 161))
         self.frame_prompt.setStyleSheet("background-color: rgba(41,122,254,150);")
@@ -329,9 +306,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.label.setGeometry(QtCore.QRect(20, 30, 71, 71))
         self.label.setStyleSheet("color: rgb(255, 255, 255);background: transparent;")
         self.label.setObjectName("label")
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        self.label.setPixmap(self.pix_up)
-        self.label.setScaledContents(True)  # 自适应QLabel大小
         self.label_direction_2 = QtWidgets.QLabel(self.frame_prompt)
         self.label_direction_2.setGeometry(QtCore.QRect(30, 110, 221, 31))
         font = QtGui.QFont()
@@ -505,6 +479,25 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+
+        self.pix_up = QPixmap('./icon/arrow-up.png')
+        self.pix_cr = QPixmap('./icon/car.png')
+        self.pix_c1 = QPixmap('./icon/car1.png')
+        self.pix_ca = QPixmap('./icon/caution.png')
+        self.pix_lf = QPixmap('./icon/corner-up-left.png')
+        self.pix_rg = QPixmap('./icon/corner-up-right.png')
+        self.pix_rt = QPixmap('./icon/result.png')
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        self.label.setPixmap(self.pix_up)
+        self.label.setScaledContents(True)  # 自适应QLabel大小
+        self.label_car.setPixmap(self.pix_c1)
+        self.label_car.setScaledContents(True)  # 自适应QLabel大小
+        self.label_ob_icon.setPixmap(self.pix_cr)
+        self.label_ob_icon.setScaledContents(True)  # 自适应QLabel大小
+        self.label_fcw_icon.setPixmap(self.pix_ca)
+        self.label_fcw_icon.setScaledContents(True)  # 自适应QLabel大小
+        self.label_result.setPixmap(self.pix_rt)
+        self.label_result.setScaledContents(True)  # 自适应QLabel大小
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
