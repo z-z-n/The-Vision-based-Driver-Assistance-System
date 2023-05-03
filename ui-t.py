@@ -398,10 +398,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             openfile = os.getcwd()
         name, _ = QFileDialog.getOpenFileName(self, 'Video', openfile, "PT File(*.pt)")
         if name:
-            self.det_thread.weight = name
+            self.det_thread.cur_weight = name
         else:
-            self.det_thread.weight = './yolov5_k.pt'
-        str1 = 'Model: ' + self.det_thread.weight.split('/')[-1]
+            self.det_thread.cur_weight = './yolov5_k.pt'
+        str1 = 'Model: ' + self.det_thread.cur_weight.split('/')[-1]
         self.pushButton_model.setText(str1)
 
     def change_val(self, x, control):
@@ -444,7 +444,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.label.setPixmap(self.pix_lf)
         else:
             self.label_direction.setText('Turn Right')
-            self.label.setPixmap(self.pix_lf)
+            self.label.setPixmap(self.pix_rg)
 
     def show_lane(self, lbool, rbool):
         if lbool:
