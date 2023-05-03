@@ -102,13 +102,12 @@ class LANE_DETECTION:
         self.xm_for_1pix = 3.7 / 384
         self.ym_for_1pix = 0.91 / 80
 
-
     '''
     图像预处理：1.HLS颜色过滤；2.sobel算子过滤 （2者利用阈值保留并结合）
     '''
 
     # HLS 阈值过滤，保留黄色和白色区域
-    def HLS_filter(self,img):
+    def HLS_filter(self, img):
         # convert to HLS to mask based on HLS
         hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
         # 白色min和max阈值
@@ -125,7 +124,7 @@ class LANE_DETECTION:
         return HLS_bin
 
     # x方向上的sobel算子阈值过滤
-    def sobel_filter(self,img, thresh_min=20, thresh_max=100):
+    def sobel_filter(self, img, thresh_min=20, thresh_max=100):
         # 原图， 阈值范围20-100
         # 转为灰度图
         gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
@@ -150,7 +149,7 @@ class LANE_DETECTION:
         return s_bin
 
     # 预处理函数
-    def preprocess(self,img):
+    def preprocess(self, img):
         HLS_bin = self.HLS_filter(img)
         sobel_bin = self.sobel_filter(img)
         Schannel_bin = self.HLS_Sfilter(img)
@@ -184,7 +183,7 @@ class LANE_DETECTION:
         src = np.float32(img_size) * src0
         dst = np.float32(dst_size) * dst0
         R = cv2.getPerspectiveTransform(src, dst)
-        self.PTmx = R   # 保存矩阵
+        self.PTmx = R  # 保存矩阵
         warped_bin = cv2.warpPerspective(img, R, dst_size)
         warped_color = cv2.warpPerspective(img0, R, dst_size)
 
@@ -224,7 +223,7 @@ class LANE_DETECTION:
         return warped_bin, warped_color
 
     # 逆透视变换（将俯视图转为前视图）
-    def re_perspective_img(self,img):
+    def re_perspective_img(self, img):
         # 原图
         # 图片大小，opencv读取，[1]是宽度[0]是高度
         img_size = (800, 450)
@@ -324,10 +323,12 @@ class LANE_DETECTION:
         # 滑动窗口，执行win_num次
         for window in range(win_num):
             # 更新当前窗口位置：左右2个
-            win_l_y, img_RGB, l_inside_idx = self.update_win5(img_RGB, win_h, win_w, win_l_y, l_x_current, valid_x, valid_y,
-                                                         min_p)
-            win_r_y, img_RGB, r_inside_idx = self.update_win5(img_RGB, win_h, win_w, win_r_y, r_x_current, valid_x, valid_y,
-                                                         min_p)
+            win_l_y, img_RGB, l_inside_idx = self.update_win5(img_RGB, win_h, win_w, win_l_y, l_x_current, valid_x,
+                                                              valid_y,
+                                                              min_p)
+            win_r_y, img_RGB, r_inside_idx = self.update_win5(img_RGB, win_h, win_w, win_r_y, r_x_current, valid_x,
+                                                              valid_y,
+                                                              min_p)
             # cv2.imshow('1', img_RGB)
             # cv2.waitKey(0)
             # 获得当前有效像素的xy下标
@@ -538,6 +539,61 @@ class LANE_DETECTION:
 
         return img_add
 
+    # 显示信息
+    def get_info(self, img, img_bin, l_x, r_x, ploty, max_sp=0.6):
+        # 原图像，二值图，左车道线x坐标，右车道线x坐标 和 多项式y坐标
+        # 初始化图像
+        img_RGB = np.zeros_like(img)
+        # 将x和y合并后，矩阵转置，使得每行是【x,y】
+        l1 = np.transpose(np.array([l_x, ploty], dtype="int"))
+        r1 = np.transpose(np.array([r_x, ploty], dtype="int"))
+        left_pix = np.array([l1])
+        # 将矩阵反转1st行→n行，2nd行→n-1行；这样画图
+        right_pix = np.array([np.flipud(r1)])
+        # 矩阵合并：2个(1,450,2)变为(1,900,2)
+        pix = np.hstack((left_pix, right_pix))
+
+        # 填充区域 实际BRG, R3,G87,B216
+        cv2.fillPoly(img_RGB, pix, (255, 80, 0))
+        lane_area = self.re_perspective_img(img_RGB)
+        img_add = cv2.addWeighted(img, 1, lane_area, 0.7, 0)
+
+        # 计算曲率半径和车辆偏离度
+        radius_param, deviation = self.cal_curve(l_x, r_x, ploty, img_bin)
+        # 计算偏离度
+        x_final = np.mean([l_x[0], r_x[0]])
+        x_init = np.mean([l_x[-1], r_x[-1]])
+        degree = (x_final - x_init) / x_init
+        # 更新信息
+        radio_mean, degree_mean = self.frame_img.update_laneInfo(radius_param[0], degree)
+        dirt = 0  # 方向 0直行，1左转，2右转
+        # 透视变化调整，此处需要调整*************************************************************
+        if abs(degree_mean) <= 0.075:
+            dirt = 0
+        elif degree_mean < 0:
+            dirt = 1
+        else:
+            dirt = 2
+
+        # 计算稀疏度
+        # 平均曲线
+        l_sp_r, r_sp_r = self.sparsity(img_bin, l_x, r_x, ploty)
+        # 当前曲线
+        l_fit = self.frame_img.l_current_fit
+        r_fit = self.frame_img.r_current_fit
+        l_fitx = l_fit[0] * ploty ** 2 + l_fit[1] * ploty + l_fit[2]
+        r_fitx = r_fit[0] * ploty ** 2 + r_fit[1] * ploty + r_fit[2]
+        l_sp_c, r_sp_c = self.sparsity(img_bin, l_fitx, r_fitx, ploty)
+        l_sp = np.min([l_sp_r, l_sp_c])
+        r_sp = np.min([r_sp_r, r_sp_c])
+        # 更新frame的稀疏度
+        l_sp_m, r_sp_m = self.frame_img.update_sparsity(l_sp, r_sp)
+        l_sp = (True, l_sp_m) if l_sp_m > max_sp else (False, l_sp_m)
+        r_sp = (True, r_sp_m) if r_sp_m > max_sp else (False, r_sp_m)
+
+        # 返回：拟合图像、方向、偏离度、平均曲率、（左侧变道，稀疏度）和（右侧变道，稀疏度）
+        return img_add, dirt, deviation, radio_mean, l_sp, r_sp
+
     # 图像合并
     def merge_img(self, img_add, img_per, img_filter, img_slide):
         # 合并后的车道识别图像，透视变换彩图，透视变换二值图，滑动窗口处理图
@@ -587,15 +643,25 @@ class LANE_DETECTION:
         p1, p2 = (int(box[0]), int(box[1])), (int(box[2]), int(box[3]))
         mat = self.PTmx
         # 取高度最下方的中心点
-        u = (p1[0] + p2[0])/2
+        u = (p1[0] + p2[0]) / 2
         v = max(p1[1], p2[1])
         # 计算透视变换后坐标点
         x = (mat[0][0] * u + mat[0][1] * v + mat[0][2]) / (mat[2][0] * u + mat[2][1] * v + mat[2][2])
         y = (mat[1][0] * u + mat[1][1] * v + mat[1][2]) / (mat[2][0] * u + mat[2][1] * v + mat[2][2])
         # print(u,v,x,y)
-        dis = np.sqrt(pow((x-self.sizePT[0]/2)*self.xm_for_1pix, 2) + pow((y-self.sizePT[1])*self.ym_for_1pix, 2))
+        dx = x - self.sizePT[0] / 2
+        dy = self.sizePT[1] - y
+        dis = np.sqrt(pow(dx * self.xm_for_1pix, 2) + pow(dy * self.ym_for_1pix, 2))
         label = 'dis ' + str(round(dis, 1)) + 'm'
-        return label
+        # 判断位于汽车前0，左1，右2；60°为分界
+        if dx > 0 and abs(dy / dx) < 1.732:
+            xdirt = 2
+        elif dx < 0 and abs(dy / dx) < 1.732:
+            xdirt = 1
+        else:
+            xdirt = 0
+
+        return label, round(dis, 1), xdirt
 
 
 # 滑动窗口一般方法
@@ -719,7 +785,7 @@ if __name__ == "__main__":
     out_cat = cv2.VideoWriter("./data/video/save1.mp4", fourcc, 25, (1600, 750))  # 保存位置/格式
     # out1 = cv2.VideoWriter("gray.mp4", fourcc, 15, (800, 450), 0)
     # frame_img = Frame()
-    lane_detect=LANE_DETECTION()
+    lane_detect = LANE_DETECTION()
     while True:
         ret, frame = capture.read()
         c = cv2.waitKey(5)
@@ -731,6 +797,6 @@ if __name__ == "__main__":
         # out1.write(frame2)
         cv2.imshow('frame', frame1)
         time_now = time.time()
-        print("耗时1",time_now-time1,"s")
+        print("耗时1", time_now - time1, "s")
     out_cat.release()
     # out1.release()
