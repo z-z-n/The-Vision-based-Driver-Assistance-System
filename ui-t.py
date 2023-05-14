@@ -82,6 +82,7 @@ class detThread(QThread):
 
     def run(self):
         try:
+            self.send_msg.emit('The detection model is initializing')
             # 车道线检测初始化
             lane_detect = LANE_DETECTION()
             # YOLOv5模型初始化
@@ -107,6 +108,7 @@ class detThread(QThread):
                         self.out.release()  # 保存视频终止
                 if self.cur_weight != self.weight:
                     # 更换模型
+                    self.send_msg.emit('The detection model is initializing')
                     model = DetectMultiBackend(self.cur_weight, device=self.device, dnn=self.dnn, fp16=self.half)
                     stride, names, pt = model.stride, model.names, model.pt
                     imgsz = check_img_size(self.imgsz, s=stride)  # check image size
@@ -253,7 +255,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # 提示信息
         self.timer_m = QTimer(self)
         self.timer_m.setSingleShot(True)  # 只执行1次
-        self.timer_m.timeout.connect(lambda: self.label_sentence.setText("ヾ(•ω•`)o：Hi, wish you a good mood today ~"))
+        self.timer_m.timeout.connect(self.timeout_msg)
 
         # yolov5 thread
         self.det_thread = detThread()
@@ -425,9 +427,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
-    def display_msg(self, msg):
+    def display_msg(self, msg):     # 动态
         self.label_sentence.setText("(>ω<)：" + msg + " ~")
         self.timer_m.start(3000)
+
+    def timeout_msg(self):
+        if not self.det_thread.end:
+            model= os.path.basename(self.det_thread.weight)
+            file=os.path.basename(self.det_thread.source)
+            self.display_msg_s("Detecting >> Model：{}，File：{}".format(model, file))
+        else:
+            self.label_sentence.setText("ヾ(•ω•`)o：Hi, wish you a good mood today ~")
 
     def display_msg_s(self, msg):   # 静态不用计时器
         self.label_sentence.setText("(>ω<)：" + msg + " ~")

@@ -498,7 +498,7 @@ class Ui_MainWindow(object):
         self.label_time.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.label_time.setObjectName("label_time")
         self.label_sentence = QtWidgets.QLabel(self.frame_background)
-        self.label_sentence.setGeometry(QtCore.QRect(40, 10, 700, 31))  # (40, 10, 521, 31)
+        self.label_sentence.setGeometry(QtCore.QRect(40, 10, 800, 31))  # (40, 10, 521, 31)
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(16)
