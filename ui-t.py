@@ -102,6 +102,7 @@ class detThread(QThread):
                 if self.end:
                     # 终止
                     self.vid_cap.release()  # yolov5内视频捕获终止
+                    self.send_msg.emit('Finished')
                     if self.out is not None:
                         self.out.release()  # 保存视频终止
                 if self.cur_weight != self.weight:
@@ -214,6 +215,7 @@ class detThread(QThread):
                                                            (width, height))
                             self.out.write(im0)
                 if percent == self.percent_length:
+                    self.send_msg.emit('Finished')
                     if self.out is not None:
                         self.out.release()  # 保存视频终止
                     break
@@ -248,6 +250,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.timer_w.start(60000)  # 每隔1min刷新一次，这里设置为60000ms,即1min
         self.get_weather()
 
+        # 提示信息
+        self.timer_m = QTimer(self)
+        self.timer_m.setSingleShot(True)  # 只执行1次
+        self.timer_m.timeout.connect(lambda: self.label_sentence.setText("ヾ(•ω•`)o：Hi, wish you a good mood today ~"))
+
         # yolov5 thread
         self.det_thread = detThread()
         self.det_thread.send_img.connect(lambda x: self.show_image(x, self.label_result))
@@ -259,6 +266,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.det_thread.send_cls.connect(lambda x: self.show_obj(x))
         self.det_thread.send_dis.connect(lambda x: self.show_dis(x))
 
+        self.det_thread.source = './data/video'
         self.pushButton_start.clicked.connect(self.btn_run)
         self.pushButton_end.clicked.connect(self.end)
         self.pushButton_save.clicked.connect(self.is_save)
@@ -345,10 +353,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 if not self.det_thread.isRunning():
                     self.det_thread.start()
                 source = os.path.basename(self.det_thread.source)
-                '''source = 'camera' if source.isnumeric() else source
-                self.statistic_msg('Detecting >> model：{}，file：{}'.
-                                   format(os.path.basename(self.det_thread.weights),
-                                          source))'''
+                self.display_msg_s("Detecting >> Model：{}，File：{}".format(os.path.basename(self.det_thread.weight),
+                                                                        source))
             '''else:
                 self.det_thread.is_continue = False
                 self.statistic_msg('Pause')'''
@@ -367,7 +373,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         name, _ = QFileDialog.getOpenFileName(self, 'Video', openfile, "Video File(*.mp4 *.mkv *.avi *.flv)")
         if name:
             self.det_thread.source = name
-            # self.statistic_msg('Loaded file：{}'.format(os.path.basename(name)))
+            self.display_msg("Loaded file >> {}".format(os.path.basename(name)))
             config['openfile'] = os.path.dirname(name)
             config_json = json.dumps(config, ensure_ascii=False, indent=2)
             with open(config_f, 'w', encoding='utf-8') as f:
@@ -383,7 +389,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         name, _ = QFileDialog.getOpenFileName(self, 'image', openfile, "Pic File(*.jpg *.png)")
         if name:
             self.det_thread.source = name
-            # self.statistic_msg('Loaded file：{}'.format(os.path.basename(name)))
+            self.display_msg_s("Loaded file >> {}".format(os.path.basename(name)))
             config['openfile'] = os.path.dirname(name)
             config_json = json.dumps(config, ensure_ascii=False, indent=2)
             with open(config_f, 'w', encoding='utf-8') as f:
@@ -403,6 +409,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.det_thread.cur_weight = './yolov5_k.pt'
         str1 = 'Model: ' + self.det_thread.cur_weight.split('/')[-1]
         self.pushButton_model.setText(str1)
+        self.display_msg("Change Model >> " + str1)
 
     def change_val(self, x, control):
         if control == 'spinBox_conf':
@@ -418,11 +425,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             pass
 
+    def display_msg(self, msg):
+        self.label_sentence.setText("(>ω<)：" + msg + " ~")
+        self.timer_m.start(3000)
+
+    def display_msg_s(self, msg):   # 静态不用计时器
+        self.label_sentence.setText("(>ω<)：" + msg + " ~")
+
     def show_msg(self, msg):
-        self.runButton.setChecked(Qt.Unchecked)
-        self.label_sentence.setText(msg)
+        # self.runButton.setChecked(Qt.Unchecked)
+        self.display_msg(msg)
         if msg == "Finished":
-            self.saveCheckBox.setEnabled(True)
+            self.pushButton_save.setEnabled(True)
+            self.pushButton_end.setChecked(Qt.Checked)  # end选中
 
     def show_dev(self, num):
         if num > 0:
@@ -495,7 +510,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             content = resp.content
             text = content.decode(encoding="utf-8").split()
             city = text[6]
-            latlong = [text[8],text[9]]
+            latlong = [text[8], text[9]]
             weather = requests.get(
                 url='http://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid=0ec6592739eb63fd3679b87c41457f45&units=metric'.format(
                     latlong[0], latlong[1], )).json()
