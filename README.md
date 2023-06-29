@@ -1,13 +1,14 @@
 # graduation
 SEU graduation project
 
-Document description:
-1. Main code file:
+## Document description:
+
+### Main code file:
   ui-t.py is the final running code\n
   ui-yolov5 design source code for running interface
   lane.py is the lane line detection code
 
-2. Minor code
+### Minor code
 (1) Kitti dataset preprocessing code
   d1_modify_ann.py
   d2_txt2xml.py
@@ -18,7 +19,7 @@ Document description:
   train.py is the training code
   val.py is the model verification code
 
-3. Other
+### Other
 The data folder is used to save data, and the yaml file is used to process the dataset.
 The model folder is used to save the model, and the yaml file is used to save the model structure and so on.
 The run folder is used to save the results of training, validation and testing.
