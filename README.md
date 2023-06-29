@@ -3,7 +3,7 @@ SEU graduation project
 
 Document description:
 1. Main code file:
-  ui-t.py is the final running code
+  ui-t.py is the final running code\n
   ui-yolov5 design source code for running interface
   lane.py is the lane line detection code
 
