@@ -522,7 +522,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             city = text[6]
             latlong = [text[8], text[9]]
             weather = requests.get(
-                url='http://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid=0ec6592739eb63fd3679b87c41457f45&units=metric'.format(
+                url='http://api.openweathermap.org/data/2.5/weather?lat={}&lon={}&appid=yourself_token&units=metric'.format(
                     latlong[0], latlong[1], )).json()
             T = weather['main']['temp']
             state = weather['weather'][0]['main']
