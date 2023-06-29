@@ -31,7 +31,11 @@ SEU graduation project
 
 ### Other
 The data folder is used to save data, and the yaml file is used to process the dataset.
+
 The model folder is used to save the model, and the yaml file is used to save the model structure and so on.
+
 The run folder is used to save the results of training, validation and testing.
+
 The icon folder is used to save the icons that the program needs to use.
+
 The other folders are the folders that come with the yolov5 model.
