@@ -4,8 +4,10 @@ SEU graduation project
 ## Document description:
 
 ### Main code file:
-  ui-t.py is the final running code\n
+  ui-t.py is the final running code
+  
   ui-yolov5 design source code for running interface
+  
   lane.py is the lane line detection code
 
 ### Minor code
@@ -18,9 +20,13 @@ SEU graduation project
   d3_xml2txt.py
   
   d4_divdataset.py
+
 (2) yolov5 training, testing, etc.
+  
   detect.py detects code for yolov5
+  
   train.py is the training code
+  
   val.py is the model verification code
 
 ### Other
