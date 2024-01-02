@@ -53,7 +53,11 @@ In the post-processing part, the radius of curvature of the lane lines is calcul
 ### Advanced Sliding-Window
 The basic sliding window makes it difficult to effectively detect lane lines in some situations. If the current lane is a sharp curve, the sliding window will use the previous window position to cause it to deviate from the lane line. Therefore, a more efficient method of finding the lane line is used.
 
-![Lane Detection Method](https://github.com/z-z-n/The-Vision-based-Driver-Assistance-System/blob/main/readme/2.png)
+![The method of the advanced Sliding-Window](https://github.com/z-z-n/The-Vision-based-Driver-Assistance-System/blob/main/readme/2.png)
+
+The following figure is the result of the 2 different sliding-window methods.
+
+![Sliding-Window Results](https://github.com/z-z-n/The-Vision-based-Driver-Assistance-System/blob/main/readme/2-1.png)
 
 https://github.com/z-z-n/The-Vision-based-Driver-Assistance-System/assets/65029895/448ad4dd-a159-4fdf-a086-face54a5ec43
 
