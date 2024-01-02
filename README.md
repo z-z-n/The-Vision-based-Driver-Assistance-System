@@ -41,4 +41,4 @@ The icon folder is used to save the icons that the program needs to use.
 The other folders are the folders that come with the Yolov5 model.
 
 ## Lane Detection:
-![Lane Detection Method](https://github.com/z-z-n/The-Vision-based-Driver-Assistance-System/blob/main/yourprojectName/readme/LaneDetection.png)
+![Lane Detection Method](https://github.com/z-z-n/The-Vision-based-Driver-Assistance-System/blob/main/readme/LaneDetection.png)
