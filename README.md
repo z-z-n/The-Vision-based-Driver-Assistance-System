@@ -51,6 +51,8 @@ The sliding window stage utilizes the pre-processed binary map to obtain the lan
 In the post-processing part, the radius of curvature of the lane lines is calculated by using the coefficients of the fitted curves in combination with the multi-frame averaging method, The post-processing part utilizes the fitted curve coefficients and the multi-frame averaging method to calculate the radius of curvature of the lane lines, the sparsity, etc., and maps the fitted curves and lane line areas to the original image.
 
 ### Advanced Sliding-Window
+The basic sliding window makes it difficult to effectively detect lane lines in some situations. If the current lane is a sharp curve, the sliding window will use the previous window position to cause it to deviate from the lane line. Therefore, a more efficient method of finding the lane line is used.
+
 ![Lane Detection Method](https://github.com/z-z-n/The-Vision-based-Driver-Assistance-System/blob/main/readme/2.png)
 
 https://github.com/z-z-n/The-Vision-based-Driver-Assistance-System/assets/65029895/448ad4dd-a159-4fdf-a086-face54a5ec43
