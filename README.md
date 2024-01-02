@@ -52,3 +52,6 @@ In the post-processing part, the radius of curvature of the lane lines is calcul
 
 https://github.com/z-z-n/The-Vision-based-Driver-Assistance-System/assets/65029895/448ad4dd-a159-4fdf-a086-face54a5ec43
 
+## Lane Detection + Vehicle Detection:
+Combining lane line detection and vehicle detection with the YOLOv5-CA model.
+https://github.com/z-z-n/The-Vision-based-Driver-Assistance-System/assets/65029895/1c6fc467-8ba5-4e4f-8116-3971a515565b
