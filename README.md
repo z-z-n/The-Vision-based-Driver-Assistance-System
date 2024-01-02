@@ -61,6 +61,12 @@ The following figure is the result of the 2 different sliding-window methods.
 
 https://github.com/z-z-n/The-Vision-based-Driver-Assistance-System/assets/65029895/448ad4dd-a159-4fdf-a086-face54a5ec43
 
+## Vehicle (Target) Detection:
+
+In terms of target detection, I propose two CA hybrid attention improvement methods for the YOLOV5s model: YOLOv5s-CA and YOLOv5s-C3CA. YOLOv5s-CA and YOLOv5s-C3CA, respectively, to enhance the feature extraction ability of the model for the key regions of the image.
+
+Experiments on the KITTI autonomous driving image dataset show that the introduction of the CA attention mechanism can effectively improve the performance of the models, and YOLOv5s-C3CA outperforms the basic YOLOv5s and YOLOv5s-CA models in terms of overall performance: without significantly increasing the complexity of the model and the detection time, it improves 1% and 2% of the mAP and recall R, respectively, compared to the YOLOv5s model. and 2% improvement in mAP and recall R respectively compared to the YOLOv5s model without significant increase in model complexity and time, especially in the detection of cyclists and pedestrians, the YOLOv5s-CA model also has some performance improvement compared to the YOLOv5s model and achieves the best results in the detection of vehicles, both in terms of the detection ability of the small targets and the confidence level.
+
 ## Lane Detection + Vehicle Detection:
 Combining lane line detection and vehicle detection with the YOLOv5-CA model.
 
